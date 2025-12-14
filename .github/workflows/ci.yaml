@@ -1,0 +1,67 @@
+name: Java CI with Maven
+
+# Controls when the workflow will execute
+on:
+  # Trigger on push to main branch
+  push:
+    branches: [ main ]
+  # Trigger on pull request to main branch
+  pull_request:
+    branches: [ main ]
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+
+# Environment variables available to all jobs
+env:
+  JAVA_VERSION: '21'
+  APP_NAME: 'calculator-app'
+
+jobs:
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up JDK
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # Step 3: Display Java version
+      - name: Display Java version
+        run: java -version
+
+      # Step 4: Build with Maven
+      - name: Build with Maven
+        run: mvn clean compile
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: mvn test
+
+      # Step 6: Package application
+      - name: Package application
+        run: mvn package -DskipTests
+
+      # Step 7: Upload artifact
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}
+          path: target/*.jar
+          retention-days: 7
+
+      # Step 8: Display success message
+      - name: Success message
+        run: |
+          echo "🎉 Build completed successfully!"
+          echo "📦 Artifact uploaded: ${{ env.APP_NAME }}"
+          ls -lh target/*.jar
