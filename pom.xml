@@ -59,7 +59,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.workshop.Calculator</mainClass>
+                            <mainClass>org.example.Calculator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
