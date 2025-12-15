@@ -68,4 +68,5 @@ jobs:
 
       # Step 9: Run Jar and print output
       - name: Run JAR and print output
-        run: java -jar target/calculator-app.jar
+        run: java -jar target/simple-calculator-app-1.0-SNAPSHOT.jar
+     
