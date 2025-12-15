@@ -69,4 +69,10 @@ jobs:
       # Step 9: Run Jar and print output
       - name: Run JAR and print output
         run: java -jar target/simple-calculator-app-1.0-SNAPSHOT.jar
-     
+
+      - name: Show GitHub context variables
+        run: |
+          echo "github.actor: ${{ github.actor }}"           # e.g., yamini-dhamija
+          echo "github.event_name: ${{ github.event_name }}" # e.g., push
+          echo "github.ref: ${{ github.ref }}"               # e.g., refs/heads/main
+          echo "github.sha: ${{ github.sha }}"
