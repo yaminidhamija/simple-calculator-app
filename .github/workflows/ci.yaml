@@ -65,3 +65,7 @@ jobs:
           echo "🎉 Build completed successfully!"
           echo "📦 Artifact uploaded: ${{ env.APP_NAME }}"
           ls -lh target/*.jar
+
+      # Step 9: Run Jar and print output
+      - name: Run JAR and print output
+        run: java -jar target/calculator-app.jar
